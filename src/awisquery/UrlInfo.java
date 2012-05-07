@@ -24,7 +24,9 @@ import sun.misc.BASE64Encoder;
  * @author ajith
  */
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
@@ -230,6 +232,8 @@ public class UrlInfo {
         String         secretKey = "89ZL5z8/vZriqfYMclmvs7CrCDj4cJsfvK/d8eSk";
         String         site      = "";
         BufferedReader in        = new BufferedReader(new FileReader("test_input.txt"));
+        BufferedWriter out = new BufferedWriter(new FileWriter("outfile.txt"));
+        String str = "";
 
         while ((site = in.readLine()) != null) {
             System.out.println("site = " + site);
@@ -252,13 +256,14 @@ public class UrlInfo {
             // Print out the XML Response
             System.out.println("Response:\n");
 
-         //   System.out.println(xmlResponse);
+            out.write(xmlResponse);
             System.out.println("End of xml.........");
             parseXmlFile(xmlResponse);
         }
 
 
         System.out.println(myarray);
+        
 
         Map<Object, Integer> sitecount = new HashMap<Object, Integer>();
 
@@ -266,7 +271,16 @@ public class UrlInfo {
             Integer count = sitecount.get(each);
 
             sitecount.put(each, (count == null)? 1 : count + 1);
+
         }
+        System.err.println("final.........");
+        String s = "";
+      //  s.concat(sitecount.toString());
+        out.append("\n");
+        out.append(sitecount.toString());
+
+        //out.write(str);
+        out.close();
 
         System.out.println(sitecount);
     }
