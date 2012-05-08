@@ -97,7 +97,7 @@ public class UrlInfo {
 
 
             // iterate the employees
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < nodes.getLength(); i++) {
                 Element  element = (Element) nodes.item(i);
                 NodeList title   = element.getElementsByTagName("aws:Title");
                 Element  line    = (Element) title.item(0);
@@ -232,7 +232,9 @@ public class UrlInfo {
         String         secretKey = "89ZL5z8/vZriqfYMclmvs7CrCDj4cJsfvK/d8eSk";
         String         site      = "";
         BufferedReader in        = new BufferedReader(new FileReader("test_input.txt"));
-        BufferedWriter out = new BufferedWriter(new FileWriter("outfile.txt"));
+        BufferedWriter xmloutput = new BufferedWriter(new FileWriter("xmloutput.txt"));
+        BufferedWriter frequencyoutput = new BufferedWriter(new FileWriter("frequency.txt"));
+        
         String str = "";
 
         while ((site = in.readLine()) != null) {
@@ -256,11 +258,13 @@ public class UrlInfo {
             // Print out the XML Response
             System.out.println("Response:\n");
 
-            out.write(xmlResponse);
+            xmloutput.write(xmlResponse);
             System.out.println("End of xml.........");
             parseXmlFile(xmlResponse);
+            
         }
 
+        xmloutput.close();
 
         System.out.println(myarray);
         
@@ -276,11 +280,11 @@ public class UrlInfo {
         System.err.println("final.........");
         String s = "";
       //  s.concat(sitecount.toString());
-        out.append("\n");
-        out.append(sitecount.toString());
+        frequencyoutput.append("\n");
+        frequencyoutput.append(sitecount.toString());
 
         //out.write(str);
-        out.close();
+        frequencyoutput.close();
 
         System.out.println(sitecount);
     }
